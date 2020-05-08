@@ -17,3 +17,9 @@ pm2 start npm -- start
 https://medium.com/cashpositive/the-hitchhikers-guide-to-mongodb-transactions-with-mongoose-5bf8a6e22033
 
 ```
+
+
+
+ # Frontend:
+
+[card-shadow](https://www.youtube.com/watch?v=v1j6qA8EHcg)
