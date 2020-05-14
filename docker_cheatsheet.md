@@ -40,10 +40,10 @@ Theory:
 
 
 //Inspect container (returns details of the container settings(Environment_varibales) in json format )
-docker inspect [CONTAINER_NAME]
+- docker inspect [CONTAINER_NAME]
 
 //Container logs from container running in detached mode
-docker logs [CONATINER_NAME]
+- docker logs [CONATINER_NAME]
                                 
                                 
 //list all running containers
@@ -72,7 +72,7 @@ docker logs [CONATINER_NAME]
 
 ```
 
-#Creating Custom Image
+# Creating Custom Image
 
 ```diff
 //Start by thinking how to deploy a flask application
@@ -114,17 +114,133 @@ add following lines to it
 //Layered Architecture: Dockerbuilds images in layered format to check
 - docker history [IMAGE_NAME]
 
-//docker build-steps(layers) are cached if it fails on certain layer it reruns from that particular layer onwards
+//docker build-steps(layers) are cached if it fails on certain layer it returns from that particular layer onwards
 
+// CMD VS ENTRYPOINT
 
+1. CMD defines the command to exectute within the container when it start's
+2. CMD can be defined as CDM followed by agruments array where the first element of the array is an executable command. 
+- CMD ["command", "params"] example CMD ["sleep", "5"],  CMD ["nginx"] ,  CMD ["bash"]
 
+3. ENTRYPOINT is similar to CMD it the only difference is it can append the agruments from the docker run command to ENTRYPOINT where as in case of CDM the commandline parameters override the CMD parameters completely
+- ENTRYPOINT ["sleep"]
+- docker run ubuntu-sleeper 10
++ Command executed on start will be "sleep 10" 
 
+4. other way is to use both EntryPoint and CMD
+- ENTRYPOINT ["sleep"]
+- CMD ["10"] //in case the user povide argument from docker run it will override the CMD.
+```
 
+# Docker Networking
+```diff
+1. Docker creates 3 networks by default - "bridge", "none", "host"
+2. Bridge is the default network a docker container attaches to
+//Default network is "bridge network"
+- docker run ubuntu
+3. To specify a network for a container 
+- docker run ubuntu --network=none
+- docker run ubuntu --network=host
+     
+4. Bridge is a private internal network created by host. 
+5. All the conatiners attached to Bridge get an internal ip address in series: 172.*
+6. Containers can access each other using internal ip if required.
+7. To access any container from outside we need to map [HOST_PORT]:[DOCKER_CONTAINER_PORT] 
+  
+8. Host network siginifies that all the PORTS from all containers get mapped by default to HOST PORT
+9. This imply that we cannnot run two diffrent containers on same port as both will try and access the same port on host.
+ 
+10. None network siginfies that the container is not connected to host or othere conatiners i.e it runs in isolation
+ 
+11. By default docker creates just one bridge network. But we can create more the one bridge networks
+- docker network create --driver network --subnet 182.18.0.0/16 custom-isolation-network
+     
+//list all the nwtwork
+- docker network ls
+     
+//to ckeck the network specific details run
+- docker inspect [CONT_NAME]
+     
+12. EMBEDDED DNS (container can communicate internally using CONT_NAME instead of ip) DNS always runs on 127.0.0.11
+- mysql.connect( [CONT_NAME] )
+```
 
-
-
-
+# Docker Storage
+```diff
+1. create volume used to persist data from container on host 
+- docker volume create save-data
+//map the containers folder to the host folder
+- docker run -v save-data:/var/lib/mysql [IMAGE_NAME]
+    
+//Alternative
+- docket run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql
 
 ```
+
+# Docker Compose
+```diff
+1. If we need to run multiple containers for application we can create a docker-compose.yml file to do so.
+  example: docker-compese.yml
+      
+    service:
+        web:
+            image: "python-flask"
+        database:
+            image: "mongos-db"
+        messaging: 
+            image: "redis:alpine"
+        orchestration:
+            image: "ansible"
+         
+2. to run the docker compose to build all conatiners use
+- docker-compose up 
+
+Another example of compose of docker-compose.yml
+version: 2
+services:
+  redis:
+    image: redis
+    networks:
+        back-end:
+
+  dB:
+    image: postgress:9.4
+    networks:
+        back-end:
+        
+  vote:
+    build: ./vote            // can be used to build an image from Dockerfile
+    //image: voting-app
+    ports:
+      - 5000: 80
+    links:
+      - redis
+     networks:
+        back-end:
+        front-end:
+
+  result:
+    image: result-app
+    ports:
+      - 5001: 80
+    links:
+      - db
+     networks:
+        back-end:
+        front-end:
+
+  worker:
+    image: result-app
+    links:
+      - db
+      - redis
+     networks:
+        back-end:
+      
+   networks:
+     front-end:
+     back-end:
+```
+
 
 Thanks ♥️ :hearts: [Reference](https://www.youtube.com/watch?v=fqMOX6JJhGo)
