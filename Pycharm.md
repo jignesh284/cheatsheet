@@ -1,28 +1,21 @@
 ## Pycharm
+
+#### Symbols and Meaning
 ```
 ⌘ is the Command () key
- 
 
 ⌃ is the Control key
- 
 
 ⌥ is the Option (alt) key
  
-
 ⇧ is the Shift key
  
-
 ⇪ is the Caps Lock key
  
-
 fn is the Function key
 
 ```
 
-```
-
-
-```
 ### Editing I
 ```
 ⌘b                        Go to definatio
