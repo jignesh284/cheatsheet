@@ -1,21 +1,19 @@
-
-modes
-_____________________________
+### Modes
 ```
 esc               -command mode   
 i                 -insert mode  
 v                 -visual mode(to select)
 ```
-commands
-______________________
+
+### commands
 ```
 :set number        -line numbers
 :q                -quit
 :wq               -write and quit
 :q!               -quit without saving
 ```
-General
-_____________________________
+
+### General
 ```
 dw                -delete a word
 dd                -delete a line
@@ -27,8 +25,7 @@ p                 -paste
 r                 -replace
 ```
 
-Navigation
-_______________________________________
+### Navigation
 ```
              ^
              k              Hint:  The h key is at the left and moves left.
@@ -44,10 +41,8 @@ ctrl+d                  –jump forward (down) a half screen.
 ctrl+u                  –jump back (up) one half screen.
 ```
 
-Inline Navigation
-_______________________________________
+### Inline Navigation
 ```
-
 H                       –go to the first line of current screen.
 M                       –go to the middle line of current screen.
 L                       –go to the last line of current screen.
@@ -58,9 +53,7 @@ g_                      –go to the last non blank character of the line
 gg                      -go to the first line of the documenet
 ```
 
-
-Word Navigation
-_______________________________________
+### Word Navigation
 ```
 w                       –Takes you to the start of the word.
 [number]w               -Take you forward by n words
@@ -70,9 +63,7 @@ e                       -Takes you to the end of the work
 [number]e               -Take you end of 'nth words' from current
 ```
 
-
-Seach 
-________________________
+### Seach 
 ```
 /[word]                 -search the word in the text
 n                       -go down to the next matching word
