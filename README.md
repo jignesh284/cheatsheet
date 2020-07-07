@@ -19,3 +19,6 @@ https://medium.com/cashpositive/the-hitchhikers-guide-to-mongodb-transactions-wi
  # Frontend:
 
 [card-shadow](https://www.youtube.com/watch?v=v1j6qA8EHcg)
+
+# python Unittesting
+https://medium.com/python-pandemonium/python-mocking-you-are-a-tricksy-beast-6c4a1f8d19b2
