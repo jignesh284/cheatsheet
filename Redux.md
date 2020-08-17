@@ -103,8 +103,58 @@ const added = [ ...numbers.slice(0, index),
               ]
               
  // Removing 
- numbers.filter() 
+ const array_without_2 = numbers.filter(n => n != 2) 
+ 
+  // map 
+ const array_replace_2_w_20 = numbers.map(n => n === 2 ? 20 : n) 
 ```
+
+9. Enforcing Immutablity (for objects in javascript): libraries ** Immutable, Immer, Mori ** 
+
+```js 
+import { Map } from 'immutable' ;
+
+// Doesnot use plain javascript object. Hard to integrate
+let book = Map({ 'title': 'Harry Potter' });
+
+function publish(book) {
+  return book.set("isPublished", true);
+}
+
+book = publish(book)
+
+console.log(book.toJs())
+
+toJS: converts to JavaScript object
+set: to set the value,
+get: to get the value of property
+```
+
+10. Immer:
+```js
+
+import { produce } from. 'immer';
+
+let book = {"title": "Harry Potter"};
+
+function publish(book) {
+  return produce(book, draftBook => {
+    draftBook.isPublished = true;
+  });
+}
+
+updated = publish(book)
+
+console.log(updated);
+```
+
+## Redux
+--------
+
+
+
+
+
 
 
                    
