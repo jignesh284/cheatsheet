@@ -1,7 +1,7 @@
-## Redux
+## JavaScript Fundamentals
 
 ### what is functional Programming?
-___
+
 
 Other paradigms: Functional, Object-oriented, procedural, Event-driven
 
@@ -54,8 +54,8 @@ book.title = "Ram"
 ```js
 Both of these methods does a shallow copy:
 
-const person = {name: "John"}
-Object.assign({}, person, {name: "BoB", age: 30})
+const person = {name: "John"}.  
+Object.assign({}, person, {name: "BoB", age: 30}). // it is similar to spread operator
 
 const updated = { ...person, name: "BoB", age: 30}; 
 
@@ -149,7 +149,131 @@ console.log(updated);
 ```
 
 ## Redux
---------
+
+**Store**: is single javascript object that stores application state. 
+**Reducer**: is a function that takes the current state and returns the updated state for a store.
+**Action**: is something which tells which fields to be updated.
+
+
+Action ---dispatch--> Store ---> Reducer 
+
+                      Store <--- Reducer
+                      
+                     
+```js
+// Reducer.js
+
+let lastId = 0;
+                // Default statement
+function reducer (state = [], action) {
+    switch( action.type) {
+        case 'bugAdded':
+            return  [
+                    ...state,
+                    {
+                        id: ++lastId,
+                        description: action.payload.description,
+                        resolved: false, 
+                    }
+                ]
+            break;
+        case 'removeBug':
+            return state.filter(bug => bug.id !== action.payload.id);
+            break;
+        default:
+            return state;
+    }
+
+}
+```
+
+### Store
+```js
+// Store.js
+
+import { createStore } from 'redux';
+import reducer from './reducer';  // because we are doing default export for reducer function
+
+
+const store = createStore(reduder);
+
+export default store; 
+```
+
+
+### Dispatchers 
+```js
+
+import store from './store';
+ 
+console.log(store);
+
+store.subscribe(() => {
+     console.log("State Changed", store.getState())
+ });
+
+const unsubscribe  = store.subscribe(() => {
+    console.log("State Changed", store.getState())
+});
+
+
+store.dispatch({
+    type: "bugAdded",
+    payload: {
+        "Description": "Bug-1"
+    }
+})
+
+unsubscribe();
+
+store.dispatch({
+    type: "bugRemoved",
+    payload: {
+        "id": "1"
+    }
+})
+
+```
+
+Actions
+```js
+import store from './store';
+import * as actions from './actionTypes';
+ 
+console.log(store);
+
+store.subscribe(() => {
+     console.log("State Changed", store.getState())
+ });
+
+const unsubscribe  = store.subscribe(() => {
+    console.log("State Changed", store.getState())
+});
+
+
+store.dispatch({
+    type: actions.BUG_ADDED,
+    payload: {
+        "Description": "Bug-1"
+    }
+})
+
+unsubscribe();
+
+store.dispatch({
+    type: "bugRemoved",
+    payload: {
+        "id": "1"
+    }
+})
+```
+              
+
+
+
+
+
+
 
 
 
