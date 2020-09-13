@@ -14,11 +14,13 @@ https://medium.com/cashpositive/the-hitchhikers-guide-to-mongodb-transactions-wi
 
 ```
 
+# Interersting blogs
 
+### card-shadow:
+https://www.youtube.com/watch?v=v1j6qA8EHcg
 
- # Frontend:
+### CSS Z-indexing and stacking
+https://www.freecodecamp.org/news/4-reasons-your-z-index-isnt-working-and-how-to-fix-it-coder-coder-6bc05f103e6c/
 
-[card-shadow](https://www.youtube.com/watch?v=v1j6qA8EHcg)
-
-# python Unittesting
+### python Unittesting
 https://medium.com/python-pandemonium/python-mocking-you-are-a-tricksy-beast-6c4a1f8d19b2
